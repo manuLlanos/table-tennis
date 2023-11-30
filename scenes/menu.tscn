@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvst5x1e135l"]
+
+[ext_resource type="Script" path="res://scenes/menu.gd" id="1_siffs"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_uji36"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_siffs")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_uji36")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.18
+offset_bottom = -3.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "not pong"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -59.0
+offset_right = 92.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="OnePlayer" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1 player"
+
+[node name="TwoPlayers" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "2 players"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "exit
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/OnePlayer" to="." method="_on_one_player_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TwoPlayers" to="." method="_on_two_players_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

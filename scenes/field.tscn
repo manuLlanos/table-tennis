@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://46v2ewrltnar"]
+
+[ext_resource type="PackedScene" uid="uid://blcl0x4t2bjul" path="res://scenes/paddle.tscn" id="1_3a4cg"]
+[ext_resource type="Script" path="res://scenes/field.gd" id="1_e5m8o"]
+[ext_resource type="PackedScene" uid="uid://13mcw6afmhnm" path="res://scenes/goal_area.tscn" id="3_fujdb"]
+[ext_resource type="PackedScene" uid="uid://dvyjuu4mconxy" path="res://scenes/ball.tscn" id="4_x61cf"]
+[ext_resource type="PackedScene" uid="uid://brq6riiatlyu1" path="res://scenes/ui.tscn" id="5_0vr3e"]
+[ext_resource type="PackedScene" uid="uid://juwbpf7vm1al" path="res://scenes/pause_menu.tscn" id="6_iqf3n"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3fnwj"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_avgr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dbpax"]
+size = Vector2(540, 20)
+
+[node name="Field" type="Node2D"]
+script = ExtResource("1_e5m8o")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(270, 150)
+texture = SubResource("CanvasTexture_3fnwj")
+region_enabled = true
+region_rect = Rect2(0, 0, 540, 300)
+
+[node name="DividingLine" type="Sprite2D" parent="."]
+position = Vector2(270, 150)
+texture = SubResource("CanvasTexture_avgr8")
+region_enabled = true
+region_rect = Rect2(0, 0, 5, 300)
+
+[node name="PaddleRight" parent="." instance=ExtResource("1_3a4cg")]
+position = Vector2(520, 150)
+
+[node name="PaddleLeft" parent="." instance=ExtResource("1_3a4cg")]
+position = Vector2(20, 150)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(270, -10)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_dbpax")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(270, 310)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_dbpax")
+
+[node name="LeftGoalArea" parent="." instance=ExtResource("3_fujdb")]
+position = Vector2(-10, 150)
+
+[node name="RightGoalArea" parent="." instance=ExtResource("3_fujdb")]
+position = Vector2(550, 150)
+
+[node name="Ball" parent="." instance=ExtResource("4_x61cf")]
+position = Vector2(270, 150)
+
+[node name="UI" parent="." instance=ExtResource("5_0vr3e")]
+
+[node name="PauseMenu" parent="UI" instance=ExtResource("6_iqf3n")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+size_flags_horizontal = 4
+
+[connection signal="body_entered" from="LeftGoalArea" to="." method="_on_left_goal_area_body_entered"]
+[connection signal="body_entered" from="RightGoalArea" to="." method="_on_right_goal_area_body_entered"]
+[connection signal="just_collided" from="Ball" to="PaddleLeft" method="_on_ball_just_collided"]

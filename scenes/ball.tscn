@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvyjuu4mconxy"]
+
+[ext_resource type="Script" path="res://scenes/ball.gd" id="1_i22xu"]
+[ext_resource type="AudioStream" uid="uid://b3t8c8d7rrfp4" path="res://sounds/ball_hit_sound.wav" id="2_qrmvd"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_hgstu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27w5v"]
+size = Vector2(10, 10)
+
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_i22xu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CanvasTexture_hgstu")
+region_enabled = true
+region_rect = Rect2(0, 0, 10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_27w5v")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_qrmvd")
+volume_db = -20.0
